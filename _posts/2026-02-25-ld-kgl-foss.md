@@ -22,7 +22,7 @@ tags: [scientific-computing, variational-problems]
   </p>
 
   <p>
-    The two-dimensional Foss example is a variational problem with the
+    The two-dimensional Foss's example is a variational problem with the
     Lavrentiev phenomenon. Its solution has a boundary singularity whose
     strength varies with position, while the guiding term in
     knowledge-guided learning (KGL) focuses on the largest gradient over
@@ -124,20 +124,20 @@ To solve this problem, Wang, Xu, and Zou [3] proposed knowledge-guided learning 
 
 ## What the largest gradient leaves out
 
-KGL improves the approximation in the Manià example [3]. In our experiments on the two-dimensional Foss problem, however, it produced results close to those of standard Deep Ritz. The two error maps below show the comparison.
+KGL improves the approximation in the Manià example [3]. In our experiments on the two-dimensional Foss's problem, however, it produced results close to those of standard Deep Ritz. The two error maps below show the comparison.
 
 <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin:1rem 0;">
   <figure style="flex:1 1 250px;min-width:0;margin:0;">
-    <img src="{{ '/assets/img/ld-kgl/foss-deep-ritz-error.png' | relative_url }}" alt="Signed error map for standard Deep Ritz on the Foss example" width="640" height="480" loading="lazy" style="display:block;width:100%;height:auto;">
+    <img src="{{ '/assets/img/ld-kgl/foss-deep-ritz-error.png' | relative_url }}" alt="Signed error map for standard Deep Ritz on the Foss's example" width="640" height="480" loading="lazy" style="display:block;width:100%;height:auto;">
     <figcaption>Standard Deep Ritz</figcaption>
   </figure>
   <figure style="flex:1 1 250px;min-width:0;margin:0;">
-    <img src="{{ '/assets/img/ld-kgl/foss-kgl-error.png' | relative_url }}" alt="Signed error map for KGL on the Foss example" width="640" height="480" loading="lazy" style="display:block;width:100%;height:auto;">
+    <img src="{{ '/assets/img/ld-kgl/foss-kgl-error.png' | relative_url }}" alt="Signed error map for KGL on the Foss's example" width="640" height="480" loading="lazy" style="display:block;width:100%;height:auto;">
     <figcaption>Knowledge-guided learning (KGL)</figcaption>
   </figure>
 </div>
 
-*Signed error on the Foss example. The horizontal and vertical axes indicate test grid point indices.*
+*Signed error on the Foss's example. The horizontal and vertical axes indicate test grid point indices.*
 
 The guiding term measures the largest gradient magnitude over the domain. A large gradient in a small region can dominate this quantity, even if the $x$-derivative remains too small near other parts of the left boundary.
 
@@ -233,7 +233,7 @@ def guide_loss(ux, x, y, p=4, eps=1e-4, w_max=50.0, lam=0.015):
 ## Numerical results
 
 We compare LD-KGL with standard Deep Ritz and KGL on the
-two-dimensional Foss example. The table reports the relative
+two-dimensional Foss's example. The table reports the relative
 $L^2$ error of each method.
 
 | Method | Relative $L^2$ error |
@@ -252,9 +252,9 @@ solution has a singular derivative.
 
 <figure style="margin:1rem auto;text-align:center;">
   <img src="{{ '/assets/img/ld-kgl/foss_LD_KGL_error.png' | relative_url }}"
-       alt="Relative error of LD-KGL on the Foss example"
+       alt="Relative error of LD-KGL on the Foss's example"
        style="max-width:100%;height:auto;">
-  <figcaption>Relative error of LD-KGL on the Foss example.</figcaption>
+  <figcaption>Relative error of LD-KGL on the Foss's example.</figcaption>
 </figure>
 
 The following heatmaps compare the analytical solution with the solution
@@ -263,14 +263,14 @@ obtained by LD-KGL.
 <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin:1rem 0;">
   <figure style="flex:1 1 250px;min-width:0;margin:0;">
     <img src="{{ '/assets/img/ld-kgl/Exact_Solution.png' | relative_url }}"
-         alt="Analytical solution of the Foss example"
+         alt="Analytical solution of the Foss's example"
          style="display:block;width:100%;height:auto;">
     <figcaption>Analytical solution</figcaption>
   </figure>
 
   <figure style="flex:1 1 250px;min-width:0;margin:0;">
     <img src="{{ '/assets/img/ld-kgl/LD_KGL_Solution.png' | relative_url }}"
-         alt="LD-KGL solution of the Foss example"
+         alt="LD-KGL solution of the Foss's example"
          style="display:block;width:100%;height:auto;">
     <figcaption>LD-KGL solution</figcaption>
   </figure>
