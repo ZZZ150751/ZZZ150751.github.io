@@ -13,17 +13,20 @@ tags: [scientific-computing, variational-problems]
   border-radius: 6px;
   padding: 1.2rem 1.5rem;
   margin: 1.5rem 0 2rem;
+  font-family: Georgia, 'Times New Roman', serif;
+  line-height: 1.7;
 ">
 
-  <p style="font-size: 1.1rem; font-weight: 600; margin-top: 0;">
+  <p style="font-size: 1.15rem; font-weight: 700; margin-top: 0;">
     Overview
   </p>
 
   <p>
     The two-dimensional Foss example is a variational problem with the
     Lavrentiev phenomenon. Its solution has a boundary singularity whose
-    strength varies with position, while the KGL guiding term focuses on
-    the largest gradient over the domain.
+    strength varies with position, while the guiding term in
+    knowledge-guided learning (KGL) focuses on the largest gradient over
+    the domain.
   </p>
 
   <p style="margin-bottom: 0;">
@@ -31,8 +34,8 @@ tags: [scientific-computing, variational-problems]
     the singularity into a weighted guiding term. We also apply a pointwise
     logarithmic transformation to the energy density to improve numerical
     stability. In our experiment, LD-KGL achieves a relative
-    $$L^2$$ error of 0.002015, compared with 0.046215 for KGL—a reduction
-    of approximately 95.6%.
+    <i>L</i><sup>2</sup> error of 0.002015, compared with 0.046215 for
+    KGL—a reduction of approximately 95.6%.
   </p>
 
 </div>
