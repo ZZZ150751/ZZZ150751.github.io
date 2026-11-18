@@ -30,7 +30,7 @@ tags: [scientific-computing, variational-problems]
   </p>
 
   <p style="margin-bottom: 0;">
-    In this post, we introduce **Location-Dependent Knowledge-Guided Learning (LD-KGL)**, which incorporates the exponent of
+    In this post, we introduce <strong>Location-Dependent Knowledge-Guided Learning (LD-KGL)</strong>, which incorporates the exponent of
     the singularity into a weighted guiding term. We also apply a pointwise
     logarithmic transformation to the energy density to improve numerical
     stability. In our experiment, LD-KGL achieves a relative
