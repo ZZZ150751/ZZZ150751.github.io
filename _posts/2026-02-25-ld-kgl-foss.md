@@ -7,11 +7,35 @@ published: true
 math: true
 tags: [scientific-computing, variational-problems]
 ---
-## Overview
+<div style="
+  background-color: var(--global-code-bg-color, #f7f7f7);
+  border-left: 4px solid var(--global-theme-color, #b509ac);
+  border-radius: 6px;
+  padding: 1.2rem 1.5rem;
+  margin: 1.5rem 0 2rem;
+">
 
-The two-dimensional Foss's example is a variational problem with the Lavrentiev phenomenon. Its solution has a boundary singularity whose strength varies with position, while the KGL guiding term focuses on the largest gradient over the domain.
+  <p style="font-size: 1.1rem; font-weight: 600; margin-top: 0;">
+    Overview
+  </p>
 
-In this post, we introduce LD-KGL, which incorporates the exponent of the singularity into a weighted guiding term. We also apply a pointwise logarithmic transformation to the energy density to improve numerical stability. In our experiment, LD-KGL achieves a relative $$L^2$$ error of 0.002015, compared with 0.046215 for KGL—a reduction of approximately 95.6%.
+  <p>
+    The two-dimensional Foss example is a variational problem with the
+    Lavrentiev phenomenon. Its solution has a boundary singularity whose
+    strength varies with position, while the KGL guiding term focuses on
+    the largest gradient over the domain.
+  </p>
+
+  <p style="margin-bottom: 0;">
+    In this post, we introduce LD-KGL, which incorporates the exponent of
+    the singularity into a weighted guiding term. We also apply a pointwise
+    logarithmic transformation to the energy density to improve numerical
+    stability. In our experiment, LD-KGL achieves a relative
+    $$L^2$$ error of 0.002015, compared with 0.046215 for KGL—a reduction
+    of approximately 95.6%.
+  </p>
+
+</div>
 
 ## Variational Problems and the Lavrentiev Phenomenon
 
