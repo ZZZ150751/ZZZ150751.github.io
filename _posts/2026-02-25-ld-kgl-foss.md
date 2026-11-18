@@ -86,7 +86,7 @@ This gap poses a difficulty for standard conforming finite element methods: thei
 
 ## Deep Ritz and knowledge-guided learning
 
-Neural networks offer a way to approximate singular solutions without relying on a fixed mesh. The Deep Ritz method represents the trial function by a neural network $u_\theta$ and trains it by minimizing a sampled approximation to the energy [1]. The exact solution satisfies $\partial_x u_*\to+\infty$ as $x\to0$. When the residual is still large, the factor $|\partial_xu_\theta|^{14}$ makes steep gradients costly, so standard Deep Ritz tends to favor smoother approximations.
+Neural networks offer a way to approximate singular solutions without relying on a fixed mesh. The Deep Ritz method represents the trial function by a neural network $$u_\theta$$ and trains it by minimizing a sampled approximation to the energy [1]. The exact solution satisfies $$\partial_x u_*\to+\infty$$ as $$x\to0$$. When the residual is still large, the factor $$|\partial_xu_\theta|^{14}$$ makes steep gradients costly, so standard Deep Ritz tends to favor smoother approximations.
 
 To solve this problem, Wang, Xu, and Zou [3] proposed knowledge-guided learning (KGL), which alternates between minimizing the original variational energy and minimizing a guiding loss based on the magnitudes of the network's spatial derivatives. The guiding step encourages larger derivatives, helping the network approximate the singular solution.
 
@@ -256,7 +256,7 @@ If you find this post useful, you can cite it as follows:
   year   = {2026},
   month  = {February},
   note   = {Blog post},
-  url    = {博客文章的完整链接}
+  url    = {https://zzz150751.github.io/blog/2026/ld-kgl-foss}
 }
 ```
 ## References
