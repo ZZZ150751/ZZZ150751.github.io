@@ -7,6 +7,11 @@ published: true
 math: true
 tags: [scientific-computing, variational-problems]
 ---
+## Overview
+
+The two-dimensional Foss's example is a variational problem with the Lavrentiev phenomenon. Its solution has a boundary singularity whose strength varies with position, while the KGL guiding term focuses on the largest gradient over the domain.
+
+In this post, we introduce LD-KGL, which incorporates the exponent of the singularity into a weighted guiding term. We also apply a pointwise logarithmic transformation to the energy density to improve numerical stability. In our experiment, LD-KGL achieves a relative $$L^2$$ error of 0.002015, compared with 0.046215 for KGL—a reduction of approximately 95.6%.
 
 ## Variational Problems and the Lavrentiev Phenomenon
 
@@ -86,7 +91,7 @@ This gap poses a difficulty for standard conforming finite element methods: thei
 
 ## Deep Ritz and knowledge-guided learning
 
-Neural networks offer a way to approximate singular solutions without relying on a fixed mesh. The Deep Ritz method represents the trial function by a neural network $$u_\theta$$ and trains it by minimizing a sampled approximation to the energy [1]. The exact solution satisfies $$\partial_x u_*\to+\infty$$ as $$x\to0$$. When the residual is still large, the factor $$|\partial_xu_\theta|^{14}$$ makes steep gradients costly, so standard Deep Ritz tends to favor smoother approximations.
+Neural networks offer a way to approximate singular solutions without relying on a fixed mesh. The Deep Ritz method represents the trial function by a neural network $$u_\theta$$ and trains it by minimizing a sampled approximation to the energy [1]. The exact solution satisfies $$\partial_x u_*\to+\infty$$ as $$x\to0$$. When the residual is still large, the factor $$\lvert \partial_x u_\theta\rvert^{14}$$ makes steep gradients costly, so standard Deep Ritz tends to favor smoother approximations.
 
 To solve this problem, Wang, Xu, and Zou [3] proposed knowledge-guided learning (KGL), which alternates between minimizing the original variational energy and minimizing a guiding loss based on the magnitudes of the network's spatial derivatives. The guiding step encourages larger derivatives, helping the network approximate the singular solution.
 
