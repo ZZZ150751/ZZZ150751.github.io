@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Foss solution slices</title>
+<style>
+:root{color-scheme:light;--text:#162639;--muted:#475a6c;--edge:#ccd7e0;--accent:#0d6175;--wash:#edf6f8}
+*{box-sizing:border-box}
+body{margin:0;padding:8px;color:var(--text);background:transparent;font:15px/1.45 system-ui,sans-serif}
+main{max-width:680px;margin:0 auto;border:1px solid var(--edge);border-radius:12px;padding:14px 16px;background:#fff}
+h1{font-size:19px;line-height:1.2;margin:0 0 12px}
+.buttons{display:flex;gap:6px;margin:0 0 12px}
+button{font:inherit;min-height:36px;padding:5px 12px;color:var(--text);background:#fff;border:1px solid var(--edge);border-radius:6px;cursor:pointer}
+button[aria-pressed=true]{background:var(--wash);color:#064b5b;border-color:var(--accent);font-weight:650}
+button:disabled{opacity:.42;cursor:default}
+button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.control{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center}
+label{display:block;font-size:13px;font-weight:650}
+output{font-variant-numeric:tabular-nums}
+input{width:100%;margin:4px 0 0;accent-color:var(--accent)}
+.range{min-width:0}
+.plot{display:block;width:100%;max-width:475px;margin:6px auto 0}
+.key{display:flex;flex-wrap:wrap;justify-content:center;gap:5px 18px;font-size:13px}
+.key span{display:inline-flex;align-items:center;gap:6px}
+.key i{display:inline-block;width:22px;border-top:2px solid}
+#exact-line{border-top-style:dashed}
+#note{margin:6px 0 0;color:var(--muted);font-size:12px;min-height:2.8em}
+@media(max-width:380px){body{padding:4px}main{padding:12px 8px}.buttons button{padding:5px 8px}.control{gap:5px}}
+</style>
+</head>
+<body>
+<main>
+<h1>Foss solution slices</h1>
+<div class="buttons" role="group" aria-label="Slice direction">
+  <button type="button" id="along-x" aria-pressed="true">Along x (fixed y)</button>
+  <button type="button" id="along-y" aria-pressed="false">Along y (fixed x)</button>
+</div>
+<div class="control">
+  <button type="button" id="previous" aria-label="Previous slice">‹</button>
+  <div class="range">
+    <label for="slice"><span id="label">Fixed y</span> · <output id="value" for="slice">y = 1.5</output></label>
+    <input id="slice" type="range" min="0" max="10" step="1" value="0" aria-valuetext="y = 1.5">
+  </div>
+  <button type="button" id="next" aria-label="Next slice">›</button>
+</div>
+<svg class="plot" id="plot" viewBox="0 64 424 290" role="img" aria-label="Cross-section along x at fixed y = 1.5">
+  <image id="sheet" href="along-x.png" x="0" y="0" width="1706" height="962"></image>
+</svg>
+<div class="key" aria-label="Curve legend">
+  <span><i id="exact-line" style="border-color:#db0000" aria-hidden="true"></i>Analytical</span>
+  <span><i id="trained-line" style="border-color:#5252ff" aria-hidden="true"></i>Trained</span>
+</div>
+<p id="note">Move the slider to change the height y. The horizontal axis of each plot is x.</p>
+<noscript><p>Enable JavaScript to switch slices. <a href="along-x.png">All x-direction slices</a> · <a href="along-y.png">All y-direction slices</a></p></noscript>
+</main>
+<script>
+const series = {
+  x: {
+    fixed: 'y', base: 15, image: 'along-x.png', exact: '#db0000', trained: '#5252ff',
+    note: 'Move the slider to change the height y. The horizontal axis of each plot is x.'
+  },
+  y: {
+    fixed: 'x', base: 0, image: 'along-y.png', exact: '#008000', trained: '#cf48ce',
+    note: 'Move the slider to change x. The horizontal axis is y. Vertical scales vary by slice.'
+  }
+};
+const edges = {x: [0, 424, 848, 1271, 1698], y: [0, 426, 849, 1272, 1698]};
+const rows = [64, 358, 652];
+const indexByDirection = {x: 0, y: 0};
+let direction = 'x';
+const get = id => document.getElementById(id);
+const slider = get('slice');
+const previous = get('previous');
+const next = get('next');
+const sheet = get('sheet');
+const plot = get('plot');
+
+function showSlice() {
+  const current = series[direction];
+  const index = indexByDirection[direction];
+  const position = (current.base + index) / 10;
+  const coordinate = current.fixed + ' = ' + position.toFixed(1);
+  const col = index % 4;
+  const row = Math.floor(index / 4);
+  const left = edges[direction][col];
+  const width = edges[direction][col + 1] - left;
+  const top = rows[row];
+  plot.setAttribute('viewBox', [left, top, width, 290].join(' '));
+  plot.setAttribute('aria-label', 'Cross-section along ' + direction + ' at fixed ' + coordinate);
+  if (sheet.getAttribute('href') !== current.image) sheet.setAttribute('href', current.image);
+  get('label').textContent = 'Fixed ' + current.fixed;
+  get('value').textContent = coordinate;
+  get('note').textContent = current.note;
+  get('exact-line').style.borderColor = current.exact;
+  get('trained-line').style.borderColor = current.trained;
+  slider.value = index;
+  slider.setAttribute('aria-valuetext', coordinate);
+  previous.disabled = index === 0;
+  next.disabled = index === 10;
+  for (const axis of ['x', 'y']) get('along-' + axis).setAttribute('aria-pressed', axis === direction);
+}
+
+for (const axis of ['x', 'y']) {
+  get('along-' + axis).addEventListener('click', () => {
+    direction = axis;
+    showSlice();
+  });
+}
+slider.addEventListener('input', () => {
+  indexByDirection[direction] = slider.valueAsNumber;
+  showSlice();
+});
+previous.addEventListener('click', () => {
+  indexByDirection[direction] -= 1;
+  showSlice();
+});
+next.addEventListener('click', () => {
+  indexByDirection[direction] += 1;
+  showSlice();
+});
+showSlice();
+</script>
+</body>
+</html>
